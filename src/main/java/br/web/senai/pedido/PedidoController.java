@@ -13,7 +13,7 @@ final class PedidoController {
 
 	private final PedidoRepository pedidoRepository;
 	
-	public PedidoController( final PedidoRepository pedidoRepository) {
+	 PedidoController( final PedidoRepository pedidoRepository) {
 		this.pedidoRepository = pedidoRepository;
 	}
 	
@@ -23,11 +23,12 @@ final class PedidoController {
 		pedidoEntity.setNumero_pedido(pedidoDTO.getNumero_pedido());
 		
 	}
-
-	public List<PedidoDTO> getAllPedidos() {
-		final List<PedidoDTO> pedidos = new ArrayList<>();
-		this.pedidoRepository.findAll().forEach(pedidoEntity -> pedidos.add(PedidoController.toDTO(pedidoEntity)));
-		return pedidos;
+	
+	private static PedidoEntity toEntity(final PedidoDTO pedidoDTO) {
+		final Long id = pedidoDTO.getId();
+		final String nome = pedidoDTO.getNome_pedido();
+		final String numero= pedidoDTO.getNumero_pedido();
+		return new PedidoEntity(id, nome, numero);
 	}
 	
 	private static PedidoDTO toDTO(final PedidoEntity pedidoEntity) {
@@ -35,6 +36,20 @@ final class PedidoController {
 		final String nome_pedido = pedidoEntity.getNome_pedido();
 		final String numero_pedido = pedidoEntity.getNumero_pedido();
 		return new PedidoDTO(id, nome_pedido, numero_pedido);
+	}
+	
+	List<PedidoDTO> getAllPedidos() {
+		final List<PedidoDTO> pedidos = new ArrayList<>();
+		this.pedidoRepository.findAll().forEach(pedidoEntity -> pedidos.add(PedidoController.toDTO(pedidoEntity)));
+		return pedidos;
+	}
+	
+	PedidoDTO getPedido(final Long id) {
+		final Optional<PedidoEntity> optionalPedido = this.pedidoRepository.findById(id);
+		if (optionalPedido.isPresent()) {
+			return PedidoController.toDTO(optionalPedido.get());
+		}
+		return PedidoDTO.NULL_VALUE;
 	}
 
 	PedidoDTO removePedido( final Long id) {
@@ -46,13 +61,11 @@ final class PedidoController {
 		}
 		return (PedidoDTO) PedidoDTO.NULL_VALUE;
 	}
-
-	PedidoDTO getPedido(final Long id) {
-		final Optional<PedidoEntity> optionalPedido = this.pedidoRepository.findById(id);
-		if (optionalPedido.isPresent()) {
-			return PedidoController.toDTO(optionalPedido.get());
-		}
-		return PedidoDTO.NULL_VALUE;
+	
+	Long insertPedido(final PedidoDTO pedidoDTO) {
+		final PedidoEntity pedidoEntity = PedidoController.toEntity(pedidoDTO);
+		this.pedidoRepository.save(pedidoEntity);
+		return pedidoEntity.getId();
 	}
 
 	PedidoDTO updatePedido(final Long id, final PedidoDTO pedidoDTO) {
@@ -66,7 +79,6 @@ final class PedidoController {
 		}
 		return PedidoDTO.NULL_VALUE;
 	}
-
 	
 }
 	

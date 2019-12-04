@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.we.senai.cliente.ClienteController;
-import br.we.senai.cliente.ClienteDTO;
+import br.web.senai.cliente.ClienteController;
+import br.web.senai.cliente.ClienteDTO;
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -60,7 +60,7 @@ public final class ClienteService {
 					
 	@PostMapping
 	public Long insertCliente(@RequestBody final ClienteDTO cliente) {
-		return this.clienteController.insertCliente(cliente);
+		return this.clienteController.insertcliente(cliente);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,8 @@ public class PedidoService {
 	
 	private final PedidoController pedidoController;
 
-	PedidoService(final PedidoController pedido) {
-	    this.pedidoController = pedido;
+	PedidoService(final PedidoController pedidoController) {
+	    this.pedidoController = pedidoController;
 	}
 	
 	@GetMapping("/lista_pedido")
@@ -31,7 +32,7 @@ public class PedidoService {
 		return this.pedidoController.getAllPedidos();
 	}
 	
-	@GetMapping("/{id}/pedido")
+	@GetMapping("/{id}")
 	public ResponseEntity<PedidoDTO> getPedido(@PathVariable final Long id) {
 		final PedidoDTO pedido = this.pedidoController.getPedido(id);
 		if (pedido.equals(PedidoDTO.NULL_VALUE)) {
@@ -40,7 +41,7 @@ public class PedidoService {
 		return new ResponseEntity<>(pedido, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{id}/pedido")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<PedidoDTO> removePedido(@PathVariable final Long id) {
 		final PedidoDTO removedPedido= this.pedidoController.removePedido(id);
 		if (removedPedido.equals(PedidoDTO.NULL_VALUE)) {
@@ -49,13 +50,18 @@ public class PedidoService {
 		return new ResponseEntity<>(removedPedido, HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}/pedido")
+	@PutMapping("/{id}")
 	public ResponseEntity<PedidoDTO> updatePedido(@PathVariable final Long id, @RequestBody final PedidoDTO pedido) {
 		final PedidoDTO oldPedido = this.pedidoController.updatePedido(id, pedido);
 		if (oldPedido.equals(PedidoDTO.NULL_VALUE)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(oldPedido, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public Long insertPedido(@RequestBody final PedidoDTO pedido) {
+		return this.pedidoController.insertPedido(pedido);
 	}
 
 }
