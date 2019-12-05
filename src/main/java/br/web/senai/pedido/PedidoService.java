@@ -23,11 +23,11 @@ public class PedidoService {
 	
 	private final PedidoController pedidoController;
 
-	PedidoService(final PedidoController pedidoController) {
-	    this.pedidoController = pedidoController;
+	PedidoService(final PedidoController pedido) {
+	    this.pedidoController = pedido;
 	}
 	
-	@GetMapping("/lista_pedido")
+	@GetMapping("/lista")
 	public List<PedidoDTO> list() {
 		return this.pedidoController.getAllPedidos();
 	}
@@ -58,10 +58,10 @@ public class PedidoService {
 		}
 		return new ResponseEntity<>(oldPedido, HttpStatus.OK);
 	}
-	
 	@PostMapping
 	public Long insertPedido(@RequestBody final PedidoDTO pedido) {
 		return this.pedidoController.insertPedido(pedido);
 	}
+
 
 }

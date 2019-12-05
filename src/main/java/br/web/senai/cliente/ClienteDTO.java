@@ -3,7 +3,7 @@ package br.web.senai.cliente;
 public class ClienteDTO {
 	
 	
-	public static final ClienteDTO NULL_VALUE = new ClienteDTO(Long.valueOf(0), Long.valueOf(0), "", "", "");
+	public static final ClienteDTO NULL_VALUE = null;
 	private final Long  id;
 	private final Long cpf;
 	private final String nome;
@@ -42,4 +42,3 @@ public class ClienteDTO {
 	
 }
 
-		

@@ -26,12 +26,12 @@ public final class ClienteService {
 	    this.clienteController = clienteController;
 	}
 
-	@GetMapping("/lista_cliente")
+	@GetMapping("/lista")
 	public List<ClienteDTO> list() {
 		return this.clienteController.getAllClientes();
 	}
 
-	@GetMapping("/{id}/detalhes_cliente")
+	@GetMapping("/{id}/detalhes")
 	public ResponseEntity<ClienteDTO> getCliente(@PathVariable final Long id) {
 		final ClienteDTO cliente = this.clienteController.getCliente(id);
 		if (cliente.equals(ClienteDTO.NULL_VALUE)) {

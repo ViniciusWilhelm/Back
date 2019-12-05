@@ -2,7 +2,7 @@ package br.web.senai.produto;
 
 public class ProdutoDTO {
 	
-	public static final ProdutoDTO NULL_VALUE = new ProdutoDTO( Long.valueOf(0), "", "", "");
+	public static final ProdutoDTO NULL_VALUE = new ProdutoDTO( null, "", "", "");
 	
 	private final Long id;
 	private final String nome;

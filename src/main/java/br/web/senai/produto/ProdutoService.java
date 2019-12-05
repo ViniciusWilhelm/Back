@@ -26,12 +26,12 @@ public final class ProdutoService {
 	    this.produtoController = produtoController;
 	}
 
-	@GetMapping("/lista_produto")
+	@GetMapping("/lista")
 	public List<ProdutoDTO> list() {
 		return this.produtoController.getAllProdutos();
 	}
 
-	@GetMapping("/{id}/detalhes_produto")
+	@GetMapping("/{id}/detalhes")
 	public ResponseEntity<ProdutoDTO> getProduto(@PathVariable final Long id) {
 		final ProdutoDTO produto = this.produtoController.getProduto(id);
 		if (produto.equals(ProdutoDTO.NULL_VALUE)) {

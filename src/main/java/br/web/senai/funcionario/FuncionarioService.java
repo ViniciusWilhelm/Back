@@ -25,12 +25,12 @@ public final class FuncionarioService {
 	    this.funcionarioController = funcionarioController;
 	}
 
-	@GetMapping("/lista_funcionario")
+	@GetMapping("/lista")
 	public List<FuncionarioDTO> list() {
 		return this.funcionarioController.getAllFuncionarios();
 	}
 
-	@GetMapping("/{id}/detalhes_funcionarios")
+	@GetMapping("/{id}/detalhes")
 	public ResponseEntity<FuncionarioDTO> getFuncionario(@PathVariable final Long id) {
 		final FuncionarioDTO funcionario = this.funcionarioController.getFuncionario(id);
 		if (funcionario.equals(FuncionarioDTO.NULL_VALUE)) {

@@ -3,8 +3,7 @@ package br.web.senai.funcionario;
 
 
 public class FuncionarioDTO {
-	
-	public static final FuncionarioDTO NULL_VALUE = new FuncionarioDTO(Long.valueOf(0), "", "", "", Long.valueOf(0));
+	public static final FuncionarioDTO NULL_VALUE = null;
 	private final Long id;
 	private final String nome;
 	private final String setor;
